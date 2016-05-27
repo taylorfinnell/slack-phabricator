@@ -3,18 +3,9 @@ require 'json'
 Dotenv.load
 
 class App < Sinatra::Application
-  def self.slack_username(phabricator_name)
-    @user_map ||= JSON(ENV['USER_MAP'] || "{}")
-    if @user_map
-      @user_map[phabricator_name] || phabricator_name
-    else
-      phabricator_name
-    end
-  end
-
   def self.notifier
     @notifier ||= Slack::Notifier.new(ENV['SLACK_WEBHOOK_URL'],
-                                      username: ENV['SLACK_USERNAME'] || 'slack-phabricator')
+                                      username: 'code-review-bot')
   end
 
   Phabulous.configure do |config|
@@ -31,15 +22,13 @@ class App < Sinatra::Application
     revision = Phabulous.revisions.find(objectPHID)
 
     if revision
-      ([revision.author] + revision.reviewers).each do |recepient|
-        message = feed.text
-        channel = "@#{App.slack_username(recepient.name)}"
+      message = feed.text
+      channel = "#code-review"
 
-        message = "#{message} <a href='#{revision.uri}'>View #{revision.differential_id}</a>"
-        message = Slack::Notifier::LinkFormatter.format(message)
+      message = "#{message} <a href='#{revision.uri}'>View #{revision.differential_id} (reviewers: #{revision.reviewers.map { |r| "@#{r.name}" }.join(', ')})</a>"
+      message = Slack::Notifier::LinkFormatter.format(message)
 
-        App.notifier.ping(message, channel: channel)
-      end
+      App.notifier.ping(message, channel: channel)
     end
 
     status 200

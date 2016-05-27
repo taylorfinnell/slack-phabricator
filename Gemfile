@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'sinatra'
-gem 'phabulous', path: '../phabulous'
+gem 'phabulous'
 gem 'slack-notifier'
 gem 'dotenv'
 

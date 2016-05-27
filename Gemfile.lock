@@ -1,57 +1,53 @@
-PATH
-  remote: ../phabulous
-  specs:
-    phabulous (0.0.1)
-      httparty
-
 GEM
   remote: http://rubygems.org/
   specs:
-    coderay (1.1.0)
+    coderay (1.1.1)
     diff-lcs (1.2.5)
-    dotenv (1.0.2)
-    httparty (0.13.3)
+    dotenv (2.1.1)
+    httparty (0.13.7)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
-    json (1.8.2)
+    json (1.8.3)
     method_source (0.8.2)
     multi_xml (0.5.5)
-    pry (0.10.1)
+    phabulous (0.0.2)
+      httparty (~> 0.13)
+    pry (0.10.3)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
-    rack (1.6.0)
+    rack (1.6.4)
     rack-protection (1.5.3)
       rack
     rack-test (0.6.3)
       rack (>= 1.0)
-    rspec (3.2.0)
-      rspec-core (~> 3.2.0)
-      rspec-expectations (~> 3.2.0)
-      rspec-mocks (~> 3.2.0)
-    rspec-core (3.2.0)
-      rspec-support (~> 3.2.0)
-    rspec-expectations (3.2.0)
+    rspec (3.4.0)
+      rspec-core (~> 3.4.0)
+      rspec-expectations (~> 3.4.0)
+      rspec-mocks (~> 3.4.0)
+    rspec-core (3.4.4)
+      rspec-support (~> 3.4.0)
+    rspec-expectations (3.4.0)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.2.0)
-    rspec-mocks (3.2.0)
+      rspec-support (~> 3.4.0)
+    rspec-mocks (3.4.1)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.2.0)
-    rspec-support (3.2.1)
-    sinatra (1.4.5)
-      rack (~> 1.4)
+      rspec-support (~> 3.4.0)
+    rspec-support (3.4.1)
+    sinatra (1.4.7)
+      rack (~> 1.5)
       rack-protection (~> 1.4)
-      tilt (~> 1.3, >= 1.3.4)
-    slack-notifier (1.0.0)
+      tilt (>= 1.3, < 3)
+    slack-notifier (1.5.1)
     slop (3.6.0)
-    tilt (1.4.1)
+    tilt (2.0.4)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   dotenv
-  phabulous!
+  phabulous
   pry
   rack-test
   rspec

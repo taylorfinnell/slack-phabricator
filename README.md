@@ -8,7 +8,6 @@ Currently Noifies:
 - Revision changes (open, close, update, comment, accept)
 
 
-
 Uses [Phabulous](http://github.com/taylorfinnell/phabulous) for Phabricator access.
 
 Setup
@@ -22,9 +21,6 @@ PHABRICATOR_CERT=
 
 PHABRICATOR_USER=
 
-
 SLACK_WEBHOOK_URL=
 
 SLACK_USERNAME=
-
-Now you can deploy to heroku, or whatever you want.

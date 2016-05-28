@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'sinatra'
+gem 'grape'
 gem 'phabulous'
 gem 'slack-notifier'
 gem 'dotenv'

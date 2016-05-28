@@ -1,20 +1,6 @@
-require 'json'
+require 'env'
 
-Dotenv.load
-
-class App < Sinatra::Application
-  def self.notifier
-    @notifier ||= Slack::Notifier.new(ENV['SLACK_WEBHOOK_URL'],
-                                      username: 'code-review-bot')
-  end
-
-  Phabulous.configure do |config|
-    config.host = ENV['PHABRICATOR_HOST']
-    config.user = ENV['PHABRICATOR_USER']
-    config.cert = ENV['PHABRICATOR_CERT']
-  end
-  Phabulous.connect!
-
+class App < Grape::API
   post '/slack-phabricator' do
     feed = Phabulous::Feed.new(params)
 
@@ -22,13 +8,9 @@ class App < Sinatra::Application
     revision = Phabulous.revisions.find(objectPHID)
 
     if revision
-      message = feed.text
-      channel = "#code-review"
-
-      message = "#{message} <a href='#{revision.uri}'>View #{revision.differential_id} (reviewers: #{revision.reviewers.map { |r| "@#{r.name}" }.join(', ')})</a>"
-      message = Slack::Notifier::LinkFormatter.format(message)
-
-      App.notifier.ping(message, channel: channel)
+      puts "Got revision authored by #{revision.author.name}, "\
+            "Reviewed by #{revision.reviewers.map(&:name).join(', ')}, "\
+            "Summary is #{feed.text}"
     end
 
     status 200
